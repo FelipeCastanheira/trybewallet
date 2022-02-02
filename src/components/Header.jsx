@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import logoWallet from '../assets/logoWallet.png';
 
 class Header extends React.Component {
@@ -20,12 +21,15 @@ class Header extends React.Component {
           </p>
         </h4>
       </header>
-    )
+    );
   }
-
 }
 
-const mapStateToProps = state => ({
-  userLogin: state.user});
+Header.propTypes = {
+  userLogin: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  userLogin: state.user });
 
 export default connect(mapStateToProps)(Header);
