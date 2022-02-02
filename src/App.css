@@ -1,41 +1,90 @@
-.App {
-  text-align: center;
+body {
+  background-color: rgb(222, 233, 222);
+  color: rgba(0, 0, 0, 0.75);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header {
+  display: flex;
+  justify-content: space-between;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header img {
+  height: 80px;
+  margin-left: 20px;
+  width: 170px;
 }
 
-.App-header {
-  align-items: center;
-  background-color: #282c34;
+header h4 {
+  display: flex;
+  gap: 30px;
+  margin: 15px 30px;
+}
+
+form {
+  background-color: rgba(0, 0, 0, 0.85);
   color: white;
   display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+  justify-content: space-around;
 }
 
-.App-link {
-  color: #61dafb;
+form label {
+  display: flex;
 }
 
-@keyframes App-logo-spin {
+input {
+  margin: 15px 5px;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+[ data-testid = "value-input" ] {
+  width: 50px;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+select {
+  cursor: pointer;
+  margin: 15px 5px;
+}
+
+button {
+  background-color: #196899;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin: 15px 5px;
+  transition: 0.4s;
+}
+
+button:hover {
+  opacity: 0.6;
+}
+
+button:disabled {
+  background-color: transparent;
+  border: 2px solid #196899;
+  color: #196899;
+}
+
+[ data-testid = "edit-btn" ] {
+  background-color: gold;
+  color: black;
+  height: 35px;
+  width: 35px;
+}
+
+[ data-testid = "delete-btn" ] {
+  background-color: red;
+  height: 35px;
+  width: 35px;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+}
+
+thead {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  height: 40px;
 }
