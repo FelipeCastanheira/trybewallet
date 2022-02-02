@@ -1,19 +1,22 @@
 import './App.css';
 import React from 'react';
-import Header from './components/Header';
-import Form from './components/Form';
-import Table from './components/Table';
-import Login from './components/Login';
+import { Route, Switch } from 'react-router-dom';
+import Wallet from './pages/Wallet';
+import Login from './pages/Login';
 
 class App extends React.Component {
   render() {
     return (
-      <>
-        <Login />
-        <Header />
-        <Form />
-        <Table />
-      </>
+      <Switch>
+        <Route path="/carteira" component={ Wallet } />
+        <Route
+          exact
+          path="/"
+          render={
+            (props) => <Login { ...props } />
+          }
+        />
+      </Switch>
     );
   }
 }
