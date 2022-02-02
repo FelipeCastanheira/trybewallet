@@ -1,0 +1,58 @@
+import React from 'react';
+import { connect } from 'react-redux';
+
+class Table extends React.Component {
+  render() {
+    const { walletData } = this.props;
+    const { expenses } = walletData;
+    // const { expenseValue, currency, method, tag, description } = walletData.expenses;
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de Pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio Utilizado</th>
+            <th>Valor Convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          { expenses.map(({ expenseValue, currency, method, tag, description }) => (
+            <tr key={ description }>
+              <td>{ description }</td>
+              <td>{ tag }</td>
+              <td>{ method }</td>
+              <td>{ expenseValue }</td>
+              <td>{ currency }</td>
+              <td>R$ 5,43</td>
+              <td>
+                <span>R$ </span>
+                <span>{Math.ceil(expenseValue * 5.43)}</span>
+              </td>
+              <td>Real brasileiro</td>
+              <td>
+                <button type="button" data-testid="edit-btn">
+                  <i class="fas fa-pencil-alt" />
+                </button>
+                <button type="button" data-testid="delete-btn">
+                  <i class="far fa-trash-alt" />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )
+  }
+
+}
+
+const mapStateToProps = state => ({
+  walletData: state.wallet});
+
+export default connect(mapStateToProps)(Table);
