@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { addExpense } from '../actions';
 
 class Form extends React.Component {
@@ -11,19 +12,19 @@ class Form extends React.Component {
       method: 'dinheiro',
       tag: 'Alimentação',
       description: '',
-    }
+    };
   }
 
   handleChange = (target, inputName) => {
-    this.setState({ [inputName]: target.value })
+    this.setState({ [inputName]: target.value });
   }
 
   handleClick = (event) => {
     event.preventDefault();
-    const { addExpense } = this.props;
+    const { addExpense: newExpense } = this.props;
     const { expenseValue, currency, method, tag, description } = this.state;
 
-    addExpense({ expenseValue, currency, method, tag, description });
+    newExpense({ expenseValue, currency, method, tag, description });
   }
 
   render() {
@@ -33,13 +34,16 @@ class Form extends React.Component {
       <form>
         <label htmlFor="value-input">
           <h5>Valor:</h5>
-          <input onChange={ ({ target }) => this.handleChange(target, 'expenseValue') }
-            data-testid="value-input" type="number"
+          <input
+            onChange={ ({ target }) => this.handleChange(target, 'expenseValue') }
+            data-testid="value-input"
+            type="number"
           />
         </label>
         <label htmlFor="currency-input">
           <h5>Moeda:</h5>
-          <select onChange={ ({ target }) => this.handleChange(target, 'currency') }
+          <select
+            onChange={ ({ target }) => this.handleChange(target, 'currency') }
             data-testid="currency-input"
           >
             <option data-testid="USD">USD</option>
@@ -60,7 +64,8 @@ class Form extends React.Component {
         </label>
         <label htmlFor="method-input">
           <h5>Método de Pagamento:</h5>
-          <select onChange={ ({ target }) => this.handleChange(target, 'method') }
+          <select
+            onChange={ ({ target }) => this.handleChange(target, 'method') }
             data-testid="method-input"
           >
             <option>Dinheiro</option>
@@ -70,7 +75,8 @@ class Form extends React.Component {
         </label>
         <label htmlFor="tag-input">
           <h5>Tag:</h5>
-          <select onChange={ ({ target }) => this.handleChange(target, 'tag') }
+          <select
+            onChange={ ({ target }) => this.handleChange(target, 'tag') }
             data-testid="tag-input"
           >
             <option>Alimentação</option>
@@ -82,19 +88,30 @@ class Form extends React.Component {
         </label>
         <label htmlFor="description-input">
           <h5>Descrição:</h5>
-          <input onChange={ ({ target }) => this.handleChange(target, 'description') } data-testid="description-input" type="text" />
+          <input
+            onChange={ ({ target }) => this.handleChange(target, 'description') }
+            data-testid="description-input"
+            type="text"
+          />
         </label>
-        <button onClick={ this.handleClick }
-          disabled={ !isEnableButton } type="submit"
-        >Adicionar despesa</button>
-      </form>
-    )
-  }
+        <button
+          onClick={ this.handleClick }
+          disabled={ !isEnableButton }
+          type="submit"
+        >
+          Adicionar despesa
 
+        </button>
+      </form>
+    );
+  }
 }
 
+Form.propTypes = {
+  addExpense: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  addExpense: (e) => dispatch(addExpense(e))});
+  addExpense: (e) => dispatch(addExpense(e)) });
 
 export default connect(null, mapDispatchToProps)(Form);
-
