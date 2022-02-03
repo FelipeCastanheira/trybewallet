@@ -12,7 +12,9 @@ class Header extends React.Component {
         <h4>
           <p>
             <span>Email: </span>
-            <span data-testid="email-field">{userLogin.email || 'Faça Login'}</span>
+            {userLogin.email
+              ? (<span data-testid="email-field">{userLogin.email}</span>)
+              : (<span>eu@email.com</span>)}
           </p>
           <p>
             <span>Despesa Total: R$</span>
@@ -26,7 +28,7 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  userLogin: PropTypes.func.isRequired,
+  userLogin: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
