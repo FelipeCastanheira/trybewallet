@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Table extends React.Component {
   render() {
     const { walletData } = this.props;
     const { expenses } = walletData;
-    // const { expenseValue, currency, method, tag, description } = walletData.expenses;
     return (
       <table>
         <thead>
@@ -22,8 +22,8 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody>
-          { expenses.map(({ expenseValue, currency, method, tag, description }) => (
-            <tr key={ description }>
+          { expenses.map(({ expenseValue, currency, method, tag, description, id }) => (
+            <tr key={ id }>
               <td>{ description }</td>
               <td>{ tag }</td>
               <td>{ method }</td>
@@ -32,27 +32,33 @@ class Table extends React.Component {
               <td>R$ 5,43</td>
               <td>
                 <span>R$ </span>
-                <span>{Math.ceil(expenseValue * 5.43)}</span>
+                <span>{Math.ceil(expenseValue * 1)}</span>
               </td>
               <td>Real brasileiro</td>
               <td>
                 <button type="button" data-testid="edit-btn">
-                  <i class="fas fa-pencil-alt" />
+                  <i className="fas fa-pencil-alt" />
+                  {/* <span>Editar Despesa</span> */}
                 </button>
                 <button type="button" data-testid="delete-btn">
-                  <i class="far fa-trash-alt" />
+                  <i className="far fa-trash-alt" />
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-    )
+    );
   }
-
 }
 
-const mapStateToProps = state => ({
-  walletData: state.wallet});
+Table.propTypes = {
+  walletData: PropTypes.shape({
+    expenses: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  walletData: state.wallet });
 
 export default connect(mapStateToProps)(Table);
