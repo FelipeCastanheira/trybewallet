@@ -24,6 +24,7 @@ form {
   background-color: rgba(0, 0, 0, 0.85);
   color: white;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
 }
 
@@ -87,4 +88,47 @@ thead {
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
   height: 40px;
+}
+
+
+.loginPage {
+  align-items: stretch;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(216, 191, 216, 0.438) 3px 3px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  margin: 100px auto;
+  max-width: 500px;
+}
+
+.loginPage header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.loginPage img {
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+.loginPage input {
+  font-size: 20px;
+  width: 100%;
+}
+
+.loginPage button {
+  font-size: 20px;
+}
+
+.onlyDesktop {
+  display: none;
+}
+
+@media screen and (min-width: 800px) {
+  .onlyDesktop {
+    display: table-cell;
+  }
 }
