@@ -12,10 +12,10 @@ class Table extends React.Component {
           <tr>
             <th>Descrição</th>
             <th>Tag</th>
-            <th>Método de Pagamento</th>
+            <th className="onlyDesktop">Método de Pagamento</th>
             <th>Valor</th>
             <th>Moeda</th>
-            <th>Câmbio Utilizado</th>
+            <th className="onlyDesktop">Câmbio Utilizado</th>
             <th>Valor Convertido</th>
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
@@ -26,10 +26,10 @@ class Table extends React.Component {
             <tr key={ id }>
               <td>{ description }</td>
               <td>{ tag }</td>
-              <td>{ method }</td>
+              <td className="onlyDesktop">{ method }</td>
               <td>{ expenseValue }</td>
               <td>{ currency }</td>
-              <td>R$ 5,43</td>
+              <td className="onlyDesktop">R$ 5,43</td>
               <td>
                 <span>R$ </span>
                 <span>{Math.ceil(expenseValue * 1)}</span>
