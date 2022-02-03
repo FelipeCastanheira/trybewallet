@@ -9,9 +9,10 @@ class Form extends React.Component {
     this.state = {
       expenseValue: '',
       currency: 'USD',
-      method: 'dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
       description: '',
+      id: '0',
     };
   }
 
@@ -22,9 +23,9 @@ class Form extends React.Component {
   handleClick = (event) => {
     event.preventDefault();
     const { addExpense: newExpense } = this.props;
-    const { expenseValue, currency, method, tag, description } = this.state;
-
-    newExpense({ expenseValue, currency, method, tag, description });
+    const { expenseValue, currency, method, tag, description, id } = this.state;
+    this.setState((state) => ({ id: state.id + 1 }));
+    newExpense({ expenseValue, currency, method, tag, description, id });
   }
 
   render() {
