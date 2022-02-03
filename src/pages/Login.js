@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../actions';
+import logoWallet from '../assets/logoWallet.png';
+
+const coinGif = 'https://media.giphy.com/media/l3mZaGv4Krokd3GM0/giphy.gif';
 
 class Login extends React.Component {
   constructor() {
@@ -41,21 +44,25 @@ class Login extends React.Component {
   render() {
     const { isEmailValid, isPasswordValid } = this.state;
     return (
-      <form>
+      <form className="loginPage">
+        <header>
+          <img src={ logoWallet } alt="logo trybe wallet" />
+          <img src={ coinGif } alt="moedas girando" />
+        </header>
         <label htmlFor="email-input">
-          <h5>Usuário:</h5>
+          {/* <h5>Usuário:</h5> */}
           <input
             data-testid="email-input"
             onChange={ this.handleUser }
-            placeholder="email"
+            placeholder="Email"
             type="email"
           />
         </label>
         <label htmlFor="password-input">
-          <h5>Senha:</h5>
+          {/* <h5>Senha:</h5> */}
           <input
             data-testid="password-input"
-            placeholder="password"
+            placeholder="Senha"
             onChange={ this.handlePassword }
             type="password"
           />
