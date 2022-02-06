@@ -32,6 +32,7 @@ Header.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  userLogin: state.user });
+  userLogin: state.user,
+  expenseData: state.wallet });
 
 export default connect(mapStateToProps)(Header);
