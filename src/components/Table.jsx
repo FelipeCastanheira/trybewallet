@@ -33,6 +33,7 @@ class Table extends React.Component {
             const { value,
               currency, method, tag, description, id, exchangeRates } = expense;
             const currencyValue = exchangeRates[currency];
+            console.log(exchangeRates);
             const decimalValue = Number(currencyValue.ask).toFixed(2);
             return (
               <tr key={ id }>
