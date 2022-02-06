@@ -17,15 +17,15 @@ class Form extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.handleRates();
-  }
+  // componentDidMount() {
+  //   this.handleRates();
+  // }
 
-  handleRates = async () => {
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const data = await response.json();
-    this.setState({ exchangeRates: data });
-  }
+  // handleRates = async () => {
+  //   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+  //   const data = await response.json();
+  //   this.setState({ exchangeRates: data });
+  // }
 
   handleChange = (target, inputName) => {
     this.setState({ [inputName]: target.value });
@@ -40,8 +40,10 @@ class Form extends React.Component {
   }
 
   render() {
-    const { expenseValue, description, exchangeRates } = this.state;
-    const isEnableButton = expenseValue && description;
+    const { value, description } = this.state;
+    const { walletData } = this.props;
+    const isEnableButton = value && description;
+    const exchangeRates = walletData.currencies;
     const options = Object.keys(exchangeRates).filter((name) => name !== 'USDT');
     return (
       <form>
@@ -49,7 +51,7 @@ class Form extends React.Component {
         <label htmlFor="value-input">
           <h5>Valor:</h5>
           <input
-            onChange={ ({ target }) => this.handleChange(target, 'expenseValue') }
+            onChange={ ({ target }) => this.handleChange(target, 'value') }
             data-testid="value-input"
             type="number"
           />
@@ -111,9 +113,16 @@ class Form extends React.Component {
 
 Form.propTypes = {
   expenseThunk: PropTypes.func.isRequired,
+  walletData: PropTypes.shape({
+    currencies: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  isLoading: state.isFetching,
+  walletData: state.wallet });
 
 const mapDispatchToProps = (dispatch) => ({
   expenseThunk: (e) => dispatch(fetchAPI(e)) });
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
