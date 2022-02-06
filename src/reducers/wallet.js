@@ -1,4 +1,4 @@
-const INITIAL_STATE = { currencies: [], expenses: [], isFetching: false };
+const INITIAL_STATE = { currencies: {}, expenses: [], isFetching: false };
 
 const updateLastExpense = (array, value) => {
   array.forEach((element, index) => {
