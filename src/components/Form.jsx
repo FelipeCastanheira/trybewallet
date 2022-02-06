@@ -12,20 +12,22 @@ class Form extends React.Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
       description: '',
-      exchangeRates: '',
+      exchangeRates: {},
       id: '0',
     };
   }
 
-  // componentDidMount() {
-  //   this.handleRates();
-  // }
+  componentDidMount() {
+    const { expenseThunk } = this.props;
+    expenseThunk();
+    this.handleRates();
+  }
 
-  // handleRates = async () => {
-  //   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-  //   const data = await response.json();
-  //   this.setState({ exchangeRates: data });
-  // }
+  handleRates = async () => {
+    const { walletData } = this.props;
+    const exchangeRates = walletData.currencies;
+    this.setState({ exchangeRates });
+  }
 
   handleChange = (target, inputName) => {
     this.setState({ [inputName]: target.value });
@@ -33,10 +35,12 @@ class Form extends React.Component {
 
   handleClick = (event) => {
     event.preventDefault();
-    const { expenseThunk } = this.props;
-
-    expenseThunk(this.state);
-    this.setState((state) => ({ id: state.id + 1 }));
+    const { expenseThunk, walletData } = this.props;
+    const exchangeRates = walletData.currencies;
+    this.setState({ exchangeRates }, () => {
+      expenseThunk(this.state);
+      this.setState((state) => ({ id: state.id + 1 }));
+    });
   }
 
   render() {
@@ -114,7 +118,9 @@ class Form extends React.Component {
 Form.propTypes = {
   expenseThunk: PropTypes.func.isRequired,
   walletData: PropTypes.shape({
-    currencies: PropTypes.objectOf(PropTypes.string),
+    currencies: PropTypes.objectOf(PropTypes.objectOf(
+      PropTypes.string,
+    )),
   }).isRequired,
 };
 
