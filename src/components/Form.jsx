@@ -58,6 +58,7 @@ class Form extends React.Component {
             onChange={ ({ target }) => this.handleChange(target, 'value') }
             data-testid="value-input"
             type="number"
+            id="value-input"
           />
         </label>
         <label htmlFor="currency-input">
@@ -65,6 +66,7 @@ class Form extends React.Component {
           <select
             onChange={ ({ target }) => this.handleChange(target, 'currency') }
             data-testid="currency-input"
+            id="currency-input"
           >
             { options.map((name) => (
               <option key={ name } data-testid={ name }>{ name }</option>
@@ -76,6 +78,7 @@ class Form extends React.Component {
           <select
             onChange={ ({ target }) => this.handleChange(target, 'method') }
             data-testid="method-input"
+            id="method-input"
           >
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
@@ -87,6 +90,7 @@ class Form extends React.Component {
           <select
             onChange={ ({ target }) => this.handleChange(target, 'tag') }
             data-testid="tag-input"
+            id="tag-input"
           >
             <option>Alimentação</option>
             <option>Lazer</option>
@@ -100,6 +104,7 @@ class Form extends React.Component {
           <input
             onChange={ ({ target }) => this.handleChange(target, 'description') }
             data-testid="description-input"
+            id="description-input"
             type="text"
           />
         </label>
