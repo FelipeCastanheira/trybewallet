@@ -38,7 +38,7 @@ Header.propTypes = {
       method: PropTypes.string,
       tag: PropTypes.string,
       description: PropTypes.string,
-      id: PropTypes.string,
+      id: PropTypes.number,
     })).isRequired,
   }).isRequired,
 };

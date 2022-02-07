@@ -13,7 +13,7 @@ class Form extends React.Component {
       tag: 'Alimentação',
       description: '',
       exchangeRates: {},
-      id: '0',
+      id: 0,
     };
   }
 
@@ -39,7 +39,10 @@ class Form extends React.Component {
     const exchangeRates = walletData.currencies;
     this.setState({ exchangeRates }, () => {
       expenseThunk(this.state);
-      this.setState((state) => ({ id: state.id + 1 }));
+      this.setState((state) => ({ value: '',
+        currency: 'USD',
+        description: '',
+        id: state.id + 1 }));
     });
   }
 
@@ -48,7 +51,7 @@ class Form extends React.Component {
     const { walletData } = this.props;
     const isEnableButton = value && description;
     const exchangeRates = walletData.currencies;
-    const options = Object.keys(exchangeRates).filter((name) => name !== 'USDT');
+    const options = Object.values(exchangeRates).filter((_data, index) => index !== 1);
     return (
       <form>
         { !exchangeRates && <h1>CARREGANDO...</h1>}
@@ -59,6 +62,7 @@ class Form extends React.Component {
             data-testid="value-input"
             type="number"
             id="value-input"
+            value={ value }
           />
         </label>
         <label htmlFor="currency-input">
@@ -68,8 +72,8 @@ class Form extends React.Component {
             data-testid="currency-input"
             id="currency-input"
           >
-            { options.map((name) => (
-              <option key={ name } data-testid={ name }>{ name }</option>
+            { options.map(({ code }) => (
+              <option key={ code } data-testid={ code }>{ code }</option>
             )) }
           </select>
         </label>
@@ -106,6 +110,7 @@ class Form extends React.Component {
             data-testid="description-input"
             id="description-input"
             type="text"
+            value={ description }
           />
         </label>
         <button

@@ -33,7 +33,6 @@ class Table extends React.Component {
             const { value,
               currency, method, tag, description, id, exchangeRates } = expense;
             const currencyValue = exchangeRates[currency];
-            console.log(exchangeRates);
             const decimalValue = Number(currencyValue.ask).toFixed(2);
             return (
               <tr key={ id }>
@@ -79,7 +78,7 @@ Table.propTypes = {
       method: PropTypes.string,
       tag: PropTypes.string,
       description: PropTypes.string,
-      id: PropTypes.string,
+      id: PropTypes.number,
       exchangeRates: PropTypes.objectOf(string),
     })).isRequired,
     isFetching: PropTypes.bool.isRequired,
