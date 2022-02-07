@@ -2,12 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { string } from 'stylelint/lib/formatters';
-import { removeAction } from '../actions';
+import { editAction, removeAction } from '../actions';
 
 class Table extends React.Component {
   removeExpense(index) {
     const { removeItem } = this.props;
     removeItem(index);
+  }
+
+  updateExpense(data) {
+    const { updateItem } = this.props;
+    updateItem({ ...data, isUpdating: true });
   }
 
   render() {
@@ -48,13 +53,17 @@ class Table extends React.Component {
                 </td>
                 <td>Real</td>
                 <td>
-                  <button type="button" data-testid="edit-btn">
+                  <button
+                    type="button"
+                    onClick={ () => this.updateExpense({ id, exchangeRates }) }
+                    data-testid="edit-btn"
+                  >
                     {/* <i className="fas fa-pencil-alt" /> */}
                     <span>Editar Despesa</span>
                   </button>
                   <button
                     type="button"
-                    onClick={ () => this.removeExpense(i) }
+                    onClick={ () => this.removeExpense(id) }
                     data-testid="delete-btn"
                   >
                     <i className="far fa-trash-alt" />
@@ -84,10 +93,12 @@ Table.propTypes = {
     isFetching: PropTypes.bool.isRequired,
   }).isRequired,
   removeItem: PropTypes.func.isRequired,
+  updateItem: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  removeItem: (e) => dispatch(removeAction(e)) });
+  removeItem: (e) => dispatch(removeAction(e)),
+  updateItem: (e) => dispatch(editAction(e)) });
 
 const mapStateToProps = (state) => ({
   walletData: state.wallet });
