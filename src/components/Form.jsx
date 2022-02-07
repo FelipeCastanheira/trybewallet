@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAPI } from '../actions';
+import { fetchAPI, removeAction } from '../actions';
 
 class Form extends React.Component {
   constructor() {
@@ -46,9 +46,25 @@ class Form extends React.Component {
     });
   }
 
+  handleUpdating = (event) => {
+    event.preventDefault();
+    const { expenseThunk, removeItem, walletData: { editData } } = this.props;
+    removeItem(editData.id);
+    expenseThunk({ ...this.state,
+      id: editData.id,
+      exchangeRates: editData.exchangeRates });
+    this.setState({ value: '',
+      currency: 'USD',
+      description: '',
+    });
+    this.setState({ id: editData.id, exchangeRates: editData.exchangeRates }, () => {
+    });
+  }
+
   render() {
     const { value, description } = this.state;
     const { walletData } = this.props;
+    // const { editData } = walletData;
     const isEnableButton = value && description;
     const exchangeRates = walletData.currencies;
     const options = Object.values(exchangeRates).filter((_data, index) => index !== 1);
@@ -114,12 +130,40 @@ class Form extends React.Component {
           />
         </label>
         <button
+          onClick={ this.handleUpdating }
+          disabled={ !isEnableButton }
+          type="button"
+        >
+          Editar despesa
+        </button>
+        )
+        : (
+        <button
           onClick={ this.handleClick }
           disabled={ !isEnableButton }
           type="submit"
         >
           Adicionar despesa
         </button>
+        {/* { editData.isUpdating
+          ? (
+            <button
+              onClick={ this.handleUpdating }
+              disabled={ !isEnableButton }
+              type="submit"
+            >
+              Editar despesa
+            </button>
+          )
+          : (
+            <button
+              onClick={ this.handleClick }
+              disabled={ !isEnableButton }
+              type="submit"
+            >
+              Adicionar despesa
+            </button>
+          ) } */}
       </form>
     );
   }
@@ -127,10 +171,16 @@ class Form extends React.Component {
 
 Form.propTypes = {
   expenseThunk: PropTypes.func.isRequired,
+  removeItem: PropTypes.func.isRequired,
   walletData: PropTypes.shape({
     currencies: PropTypes.objectOf(PropTypes.objectOf(
       PropTypes.string,
     )),
+    editData: PropTypes.shape({ isUpdating: PropTypes.bool,
+      id: PropTypes.number,
+      exchangeRates: PropTypes.objectOf(
+        PropTypes.objectOf(PropTypes.string),
+      ) }),
   }).isRequired,
 };
 
@@ -139,6 +189,7 @@ const mapStateToProps = (state) => ({
   walletData: state.wallet });
 
 const mapDispatchToProps = (dispatch) => ({
+  removeItem: (e) => dispatch(removeAction(e)),
   expenseThunk: (e) => dispatch(fetchAPI(e)) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
