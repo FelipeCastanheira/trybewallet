@@ -1,14 +1,19 @@
 const INITIAL_STATE = { currencies: {},
   expenses: [],
   isFetching: false,
-  editData: { id: 0, exchangeRates: { USD: '' }, isUpdating: false } };
+  editor: false,
+  idToEdit: 0,
+  currencyToExchange: '' };
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case 'REQUEST_API':
     return { ...state, isFetching: true };
   case 'EDIT':
-    return { ...state, editData: action.value };
+    return { ...state,
+      editor: true,
+      idToEdit: action.id,
+      currencyToExchange: action.curr };
   case 'CURRENCIES':
     return { ...state, currencies: action.value, isFetching: false };
   case 'ADD_EXPENSE':
@@ -16,7 +21,7 @@ function wallet(state = INITIAL_STATE, action) {
   case 'REMOVE':
     return { ...state,
       expenses: state.expenses.filter(({ id }) => id !== action.index),
-      editData: { ...state.editData, isUpdating: false },
+      editor: false,
     };
   default:
     return state;
