@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { string } from 'stylelint/lib/formatters';
 import { editAction, removeAction } from '../actions';
 
 class Table extends React.Component {
@@ -10,9 +9,9 @@ class Table extends React.Component {
     removeItem(index);
   }
 
-  updateExpense(data) {
+  updateExpense(id, curr) {
     const { updateItem } = this.props;
-    updateItem({ ...data, isUpdating: true });
+    updateItem(id, curr);
   }
 
   render() {
@@ -34,7 +33,7 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody>
-          { expenses.map((expense, i) => {
+          { expenses.sort((a, b) => a.id - b.id).map((expense, i) => {
             const { value,
               currency, method, tag, description, id, exchangeRates } = expense;
             const currencyValue = exchangeRates[currency];
@@ -55,11 +54,11 @@ class Table extends React.Component {
                 <td>
                   <button
                     type="button"
-                    onClick={ () => this.updateExpense({ id, exchangeRates }) }
+                    onClick={ () => this.updateExpense(id, currencyValue.code) }
                     data-testid="edit-btn"
                   >
                     {/* <i className="fas fa-pencil-alt" /> */}
-                    <span>Editar Despesa</span>
+                    {!walletData.editor && <span>Editar Despesa</span>}
                   </button>
                   <button
                     type="button"
@@ -88,8 +87,11 @@ Table.propTypes = {
       tag: PropTypes.string,
       description: PropTypes.string,
       id: PropTypes.number,
-      exchangeRates: PropTypes.objectOf(string),
+      exchangeRates: PropTypes.objectOf(
+        PropTypes.objectOf(PropTypes.string),
+      ),
     })).isRequired,
+    editor: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
   }).isRequired,
   removeItem: PropTypes.func.isRequired,
