@@ -3,7 +3,7 @@ export const login = (value) => ({ type: 'LOGIN', value });
 export const getCurrencies = (value) => ({ type: 'CURRENCIES', value });
 export const requestAPI = () => ({ type: 'REQUEST_API' });
 export const removeAction = (index) => ({ type: 'REMOVE', index });
-export const editAction = (value) => ({ type: 'EDIT', value });
+export const editAction = (id, curr) => ({ type: 'EDIT', id, curr });
 
 export function fetchAPI(expense) {
   return async (dispatch) => {
