@@ -48,26 +48,27 @@ class Form extends React.Component {
 
   handleUpdating = (event) => {
     event.preventDefault();
-    const { expenseThunk, removeItem, walletData: { editData } } = this.props;
-    removeItem(editData.id);
-    expenseThunk({ ...this.state,
-      id: editData.id,
-      exchangeRates: editData.exchangeRates });
+    const { expenseThunk, removeItem, walletData } = this.props;
+    const { idToEdit, expenses } = walletData;
+    const dataToEdit = expenses.find(({ id }) => id === idToEdit);
+    const { exchangeRates } = dataToEdit;
+    removeItem(idToEdit);
+    expenseThunk({ ...this.state, id: idToEdit, exchangeRates });
     this.setState({ value: '',
       currency: 'USD',
       description: '',
-    });
-    this.setState({ id: editData.id, exchangeRates: editData.exchangeRates }, () => {
     });
   }
 
   render() {
     const { value, description } = this.state;
     const { walletData } = this.props;
-    // const { editData } = walletData;
+    const { editor } = walletData;
     const isEnableButton = value && description;
     const exchangeRates = walletData.currencies;
-    const options = Object.values(exchangeRates).filter((_data, index) => index !== 1);
+    const optionData = Array.isArray(exchangeRates)
+      ? exchangeRates : Object.keys(exchangeRates);
+    const options = optionData.filter((name) => name !== 'USDT');
     return (
       <form>
         { !exchangeRates && <h1>CARREGANDO...</h1>}
@@ -88,8 +89,8 @@ class Form extends React.Component {
             data-testid="currency-input"
             id="currency-input"
           >
-            { options.map(({ code }) => (
-              <option key={ code } data-testid={ code }>{ code }</option>
+            { options.map((name) => (
+              <option key={ name } data-testid={ name }>{ name }</option>
             )) }
           </select>
         </label>
@@ -129,7 +130,7 @@ class Form extends React.Component {
             value={ description }
           />
         </label>
-        <button
+        {/* <button
           onClick={ this.handleUpdating }
           disabled={ !isEnableButton }
           type="button"
@@ -144,8 +145,8 @@ class Form extends React.Component {
           type="submit"
         >
           Adicionar despesa
-        </button>
-        {/* { editData.isUpdating
+        </button> */}
+        { editor
           ? (
             <button
               onClick={ this.handleUpdating }
@@ -163,7 +164,7 @@ class Form extends React.Component {
             >
               Adicionar despesa
             </button>
-          ) } */}
+          ) }
       </form>
     );
   }
@@ -176,11 +177,19 @@ Form.propTypes = {
     currencies: PropTypes.objectOf(PropTypes.objectOf(
       PropTypes.string,
     )),
-    editData: PropTypes.shape({ isUpdating: PropTypes.bool,
+    expenses: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string,
+      currency: PropTypes.string,
+      method: PropTypes.string,
+      tag: PropTypes.string,
+      description: PropTypes.string,
       id: PropTypes.number,
-      exchangeRates: PropTypes.objectOf(
-        PropTypes.objectOf(PropTypes.string),
-      ) }),
+      // exchangeRates: PropTypes.objectOf(
+      //   PropTypes.objectOf(PropTypes.string),
+      // ),
+    })).isRequired,
+    editor: PropTypes.bool.isRequired,
+    idToEdit: PropTypes.number,
   }).isRequired,
 };
 
