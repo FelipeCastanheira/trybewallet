@@ -52,6 +52,7 @@ class Form extends React.Component {
     const { idToEdit, expenses } = walletData;
     const dataToEdit = expenses.find(({ id }) => id === idToEdit);
     const { exchangeRates } = dataToEdit;
+    console.log(dataToEdit);
     removeItem(idToEdit);
     expenseThunk({ ...this.state, id: idToEdit, exchangeRates });
     this.setState({ value: '',

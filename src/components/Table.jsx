@@ -33,7 +33,8 @@ class Table extends React.Component {
           </tr>
         </thead>
         <tbody>
-          { expenses.sort((a, b) => a.id - b.id).map((expense, i) => {
+          {/* A ordenação está sendo feita no reducer */}
+          { expenses.map((expense, i) => {
             const { value,
               currency, method, tag, description, id, exchangeRates } = expense;
             const currencyValue = exchangeRates[currency];

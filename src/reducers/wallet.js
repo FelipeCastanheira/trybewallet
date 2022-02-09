@@ -17,7 +17,9 @@ function wallet(state = INITIAL_STATE, action) {
   case 'CURRENCIES':
     return { ...state, currencies: action.value, isFetching: false };
   case 'ADD_EXPENSE':
-    return { ...state, expenses: [...state.expenses, action.value], isFetching: false };
+    return { ...state,
+      expenses: [...state.expenses, action.value].sort((a, b) => a.id - b.id),
+      isFetching: false };
   case 'REMOVE':
     return { ...state,
       expenses: state.expenses.filter(({ id }) => id !== action.index),
