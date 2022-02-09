@@ -43,7 +43,7 @@ class Table extends React.Component {
                 <td>{ description }</td>
                 <td>{ tag }</td>
                 <td className="onlyDesktop">{ method }</td>
-                <td>{ value }</td>
+                <td>{ Number(value).toFixed(2) }</td>
                 <td>{ currencyValue.name }</td>
                 <td className="onlyDesktop">{ decimalValue }</td>
                 <td>
