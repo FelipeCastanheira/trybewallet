@@ -1,4 +1,5 @@
-export const addExpense = (value) => ({ type: 'ADD_EXPENSE', value });
+export const addExpense = (value, data) => ({ type: 'ADD_EXPENSE', value, data });
+export const editExpense = (value) => ({ type: 'EDIT_EXPENSE', value });
 export const login = (value) => ({ type: 'LOGIN', value });
 export const getCurrencies = (value) => ({ type: 'CURRENCIES', value });
 export const requestAPI = () => ({ type: 'REQUEST_API' });
@@ -12,7 +13,7 @@ export function fetchAPI(expense) {
       const response = await fetch('https://economia.awesomeapi.com.br/json/all');
       const data = await response.json();
       if (expense) {
-        dispatch(addExpense(expense));
+        dispatch(addExpense(expense, data));
       } else {
         dispatch(getCurrencies(data));
       }

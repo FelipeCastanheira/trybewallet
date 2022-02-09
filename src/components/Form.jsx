@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAPI, removeAction } from '../actions';
+import { editExpense, fetchAPI, removeAction } from '../actions';
 
 class Form extends React.Component {
   constructor() {
@@ -20,14 +20,14 @@ class Form extends React.Component {
   componentDidMount() {
     const { expenseThunk } = this.props;
     expenseThunk();
-    this.handleRates();
+    // this.handleRates();
   }
 
-  handleRates = async () => {
-    const { walletData } = this.props;
-    const exchangeRates = walletData.currencies;
-    this.setState({ exchangeRates });
-  }
+  // handleRates = async () => {
+  //   const { walletData } = this.props;
+  //   const exchangeRates = walletData.exp;
+  //   this.setState({ exchangeRates });
+  // }
 
   handleChange = (target, inputName) => {
     this.setState({ [inputName]: target.value });
@@ -35,26 +35,27 @@ class Form extends React.Component {
 
   handleClick = (event) => {
     event.preventDefault();
-    const { expenseThunk, walletData } = this.props;
-    const exchangeRates = walletData.currencies;
-    this.setState({ exchangeRates }, () => {
-      expenseThunk(this.state);
-      this.setState((state) => ({ value: '',
-        currency: 'USD',
-        description: '',
-        id: state.id + 1 }));
-    });
+    const { expenseThunk } = this.props;
+    // const exchangeRates = walletData.currencies;
+    expenseThunk(this.state);
+    // this.setState({ exchangeRates }, () => {
+    //   expenseThunk(this.state);
+    // });
+    this.setState((state) => ({ value: '',
+      currency: 'USD',
+      description: '',
+      id: state.id + 1 }));
   }
 
   handleUpdating = (event) => {
     event.preventDefault();
-    const { expenseThunk, removeItem, walletData } = this.props;
+    const { editAction, removeItem, walletData } = this.props;
     const { idToEdit, expenses } = walletData;
     const dataToEdit = expenses.find(({ id }) => id === idToEdit);
     const { exchangeRates } = dataToEdit;
     console.log(dataToEdit);
     removeItem(idToEdit);
-    expenseThunk({ ...this.state, id: idToEdit, exchangeRates });
+    editAction({ ...this.state, id: idToEdit, exchangeRates });
     this.setState({ value: '',
       currency: 'USD',
       description: '',
@@ -64,15 +65,15 @@ class Form extends React.Component {
   render() {
     const { value, description } = this.state;
     const { walletData } = this.props;
-    const { editor } = walletData;
+    const { editor, isFetching } = walletData;
     const isEnableButton = value && description;
-    const exchangeRates = walletData.currencies;
-    const optionData = Array.isArray(exchangeRates)
-      ? exchangeRates : Object.keys(exchangeRates);
+    const optionData = walletData.currencies;
+    // const optionData = Array.isArray(exchangeRates)
+    //   ? exchangeRates : Object.keys(exchangeRates);
     const options = optionData.filter((name) => name !== 'USDT');
     return (
       <form>
-        { !exchangeRates && <h1>CARREGANDO...</h1>}
+        { isFetching && <h1>CARREGANDO...</h1>}
         <label htmlFor="value-input">
           <h5>Valor:</h5>
           <input
@@ -173,6 +174,7 @@ class Form extends React.Component {
 
 Form.propTypes = {
   expenseThunk: PropTypes.func.isRequired,
+  editAction: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired,
   walletData: PropTypes.shape({
     currencies: PropTypes.objectOf(PropTypes.objectOf(
@@ -190,6 +192,7 @@ Form.propTypes = {
       // ),
     })).isRequired,
     editor: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     idToEdit: PropTypes.number,
   }).isRequired,
 };
@@ -200,6 +203,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeItem: (e) => dispatch(removeAction(e)),
+  editAction: (e) => dispatch(editExpense(e)),
   expenseThunk: (e) => dispatch(fetchAPI(e)) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
