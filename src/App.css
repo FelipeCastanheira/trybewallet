@@ -36,7 +36,7 @@ input {
   margin: 15px 5px;
 }
 
-[ data-testid = "value-input" ] {
+[ data-testid = 'value-input' ] {
   width: 50px;
 }
 
@@ -65,14 +65,14 @@ button:disabled {
   color: #196899;
 }
 
-[ data-testid = "edit-btn" ] {
+[ data-testid = 'edit-btn' ] {
   background-color: gold;
   color: black;
   height: 35px;
   width: 35px;
 }
 
-[ data-testid = "delete-btn" ] {
+[ data-testid = 'delete-btn' ] {
   background-color: red;
   height: 35px;
   width: 35px;
@@ -98,9 +98,9 @@ thead {
   box-shadow: rgba(216, 191, 216, 0.438) 3px 3px;
   display: flex;
   flex-direction: column;
-  padding: 25px;
   margin: 100px auto;
   max-width: 500px;
+  padding: 25px;
 }
 
 .loginPage header {
@@ -127,7 +127,8 @@ thead {
   display: none;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and ( min-width : 800px ) {
+
   .onlyDesktop {
     display: table-cell;
   }
