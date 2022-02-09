@@ -177,9 +177,7 @@ Form.propTypes = {
   editAction: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired,
   walletData: PropTypes.shape({
-    currencies: PropTypes.objectOf(PropTypes.objectOf(
-      PropTypes.string,
-    )),
+    currencies: PropTypes.arrayOf(PropTypes.string),
     expenses: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string,
       currency: PropTypes.string,

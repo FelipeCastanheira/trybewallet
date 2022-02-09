@@ -87,7 +87,7 @@ table {
 thead {
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
-  height: 40px;
+  /* height: 40px; */
 }
 
 
@@ -126,6 +126,21 @@ thead {
 .onlyDesktop {
   display: none;
 }
+
+/* table {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+tbody {
+  display: flex;
+}
+
+tr {
+  display: flex;
+  flex-direction: column;
+} */
 
 @media screen and ( min-width : 800px ) {
 
