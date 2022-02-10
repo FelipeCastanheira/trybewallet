@@ -23,10 +23,10 @@ class Table extends React.Component {
           <tr>
             <th>Descrição</th>
             <th>Tag</th>
-            <th className="onlyDesktop">Método de pagamento</th>
+            <th className="onlyDesktop">Pagamento</th>
             <th>Valor</th>
             <th>Moeda</th>
-            <th className="onlyDesktop">Câmbio utilizado</th>
+            <th className="onlyDesktop">Câmbio</th>
             <th>Valor convertido</th>
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
@@ -45,7 +45,7 @@ class Table extends React.Component {
                 <td>{ tag }</td>
                 <td className="onlyDesktop">{ method }</td>
                 <td>{ Number(value).toFixed(2) }</td>
-                <td>{ currencyValue.name }</td>
+                <td>{ currencyValue.code }</td>
                 <td className="onlyDesktop">{ decimalValue }</td>
                 <td>
                   {/* <span>R$ </span> */}
@@ -58,8 +58,8 @@ class Table extends React.Component {
                     onClick={ () => this.updateExpense(id, currencyValue.code) }
                     data-testid="edit-btn"
                   >
-                    {/* <i className="fas fa-pencil-alt" /> */}
-                    {!walletData.editor && <span>Editar Despesa</span>}
+                    <i className="fas fa-pencil-alt" />
+                    {/* {!walletData.editor && <span>Editar Despesa</span>} */}
                   </button>
                   <button
                     type="button"
