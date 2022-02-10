@@ -72,7 +72,7 @@ class Form extends React.Component {
     //   ? exchangeRates : Object.keys(exchangeRates);
     const options = optionData.filter((name) => name !== 'USDT');
     return (
-      <form>
+      <form className={ editor ? 'editor' : 'walletForm' }>
         { isFetching && <h1>CARREGANDO...</h1>}
         <label htmlFor="value-input">
           <h5>Valor:</h5>
