@@ -104,8 +104,12 @@ th, td {
 }
 
 th:last-child {
-  line-height: 67px;
+  line-height: 55px;
   margin: 0 auto;
+}
+
+table button {
+  margin: 5px;
 }
 
 thead {
