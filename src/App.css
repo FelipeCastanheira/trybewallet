@@ -95,7 +95,7 @@ tbody {
 tr {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
 } 
 
 th, td {
@@ -153,13 +153,40 @@ thead {
   color: black;
 }
 
-.onlyDesktop {
+/* .onlyDesktop {
   display: none;
-}
+} */
 
 @media screen and ( min-width : 800px ) {
 
-  .onlyDesktop {
-    display: table-cell;
+  table {
+    flex-direction: column;
+  }
+
+  tbody {
+    flex-direction: column;
+  }
+
+  tr {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  th:last-child {
+    line-height: 35px;  
+    margin: 5px auto;
+  }
+
+  th:nth-child(7), th:nth-child(8) {
+    line-height: 17px;
+  }
+
+  th, td {
+    line-height: 35px;
+    width: 11%;
+  }
+
+  table button {
+    margin: 0 3px;
   }
 }
