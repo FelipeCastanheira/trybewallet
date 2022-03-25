@@ -1,4 +1,4 @@
-### TRYBEWALLET - Projeto desenvolvido com base nos requisitos solicitados pela Trybe
+## TRYBEWALLET - Projeto desenvolvido com base nos requisitos solicitados pela Trybe
 
 ## Utiliza REACT-REDUX para gerenciar despesas, incluindo conversão de moedas
 
@@ -6,9 +6,9 @@
 
  - As despesas são apresentadas em forma de tabela, podendo ser deletadas e editadas após a criação.
 
-# Há 2 páginas neste projeto: Uma de login e outra de gerenciamento de despesas.
+### Há 2 páginas neste projeto: Uma de login e outra de gerenciamento de despesas.
 
-# Na pasta components, há Header, Form e Table.
+### Na pasta components, há Header, Form e Table.
 
  - O Header exibe, entre outras informações, a soma das despesas em reais;
  - O Form é responsável por permitir ao usuário incluir ou editar uma despesa;
