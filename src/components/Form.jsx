@@ -195,9 +195,20 @@ Form.propTypes = {
   }).isRequired,
 };
 
+// import { useSelector, useDispatch } from 'react-redux'
+// no local dos uses
+// const walletData = useSelector((state) => state.data);
+
+
 const mapStateToProps = (state) => ({
   isLoading: state.isFetching,
   walletData: state.wallet });
+
+// const dispatch = useDispatch();
+// // removeItem
+// const handleClick = (index) => {
+//   dispatch(removeAction(index));
+// }
 
 const mapDispatchToProps = (dispatch) => ({
   removeItem: (e) => dispatch(removeAction(e)),
