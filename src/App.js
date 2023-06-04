@@ -2,20 +2,21 @@ import './App.css';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Wallet from './pages/Wallet';
-import Login from './pages/Login';
+// import Login from './pages/Login';
+// import Teste from './pages/Teste';
 
 class App extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path="/carteira" component={ Wallet } />
-        <Route
+        <Route path="/" component={ Wallet } />
+        {/* <Route
           exact
           path="/"
           render={
-            (props) => <Login { ...props } />
+            (props) => <Teste { ...props } />
           }
-        />
+        /> */}
       </Switch>
     );
   }

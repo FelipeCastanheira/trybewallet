@@ -11,7 +11,6 @@ header {
 header img {
   height: 80px;
   margin-left: 20px;
-  width: 170px;
 }
 
 header h4 {
@@ -174,6 +173,7 @@ thead {
   tr {
     flex-direction: row;
     width: 100%;
+    align-items: center;
   }
 
   th:last-child {
